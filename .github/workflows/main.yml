@@ -3,6 +3,8 @@ on: [push]
 jobs:
   job_1:
     name: Create / Update Function 1 to Segment
+    env:
+      SEGMENT_AUTH_TOKEN: ${{ secrets.SEGMENT_AUTH_TOKEN }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout and Preparing Function
@@ -22,7 +24,7 @@ jobs:
       - name: Sending Function to Segment
         uses: samgehret/manageSegmentFunction@v1.6 # Uses an action in the root directory will need to be updated once this is on the Actions Marketplace.
         with:
-          token: '< your segment token >'
+          token: $SEGMENT_AUTH_TOKEN
           function-code: ${{ steps.checkout.outputs.function_code }} # don't update this
           function-name: 'Function 1 Name'
           function-type: Destination
